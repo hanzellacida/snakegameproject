@@ -11,7 +11,7 @@
             margin: 20px auto;
             border: 1px solid white;
         }
-        #score, #leaderboard {
+        #score, #leaderboard, #dPad button {
             color: white;
             font-size: 20px;
             text-align: center;
@@ -21,7 +21,7 @@
             background-color: #333;
             font-family: Arial, sans-serif;
         }
-        #nameInput {
+        #nameInput, #dPad {
             margin-top: 20px;
         }
         input[type="text"], button {
@@ -32,6 +32,30 @@
         button {
             cursor: pointer;
         }
+        #dPad {
+            margin: 20px auto;
+            width: 100px;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+        }
+        #upBtn {
+            grid-row: 1;
+            grid-column: 2;
+        }
+        #leftBtn {
+            grid-row: 2;
+            grid-column: 1;
+        }
+        #rightBtn {
+            grid-row: 2;
+            grid-column: 3;
+        }
+        #downBtn {
+            grid-row: 3;
+            grid-column: 2;
+        }
     </style>
 </head>
 <body>
@@ -40,25 +64,19 @@
     <img id="fruitIcon" src="images/fruit.png" style="display: none;">
     <img id="snakeBodyIcon" src="images/snakebody.png" style="display: none;">
 
-    
-    
     <div id="nameInput">
         <input type="text" id="playerName" placeholder="Enter your name">
         <button onclick="startGame()">Start Game</button>
     </div>
     <div id="score">Score: 0</div>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="dPad">
+        <button id="upBtn">Up</button>
+        <button id="leftBtn">Left</button>
+        <button id="rightBtn">Right</button>
+        <button id="downBtn">Down</button>
+    </div>
     <div id="leaderboard"></div>
     <script src="snake.js"></script>
-
-    
-    <div id="controls">
-        <button id="upButton">↑</button>
-        <div id="middleRow">
-            <button id="leftButton">←</button>
-            <button id="rightButton">→</button>
-        </div>
-        <button id="downButton">↓</button>
-    </div>
 </body>
 </html>

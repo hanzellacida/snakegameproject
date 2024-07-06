@@ -19,8 +19,6 @@ let fruit;
 let score;
 let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
-
-
 function Snake() {
     this.x = 0;
     this.y = 0;
@@ -107,6 +105,12 @@ function startGame() {
     score = 0;
     updateScore();
     interval = setInterval(gameLoop, speed);
+
+    // Set up D-pad controls
+    document.getElementById('upBtn').addEventListener('click', () => snake.changeDirection('Up'));
+    document.getElementById('downBtn').addEventListener('click', () => snake.changeDirection('Down'));
+    document.getElementById('leftBtn').addEventListener('click', () => snake.changeDirection('Left'));
+    document.getElementById('rightBtn').addEventListener('click', () => snake.changeDirection('Right'));
 }
 
 function resetGame() {
@@ -165,45 +169,15 @@ function gameOver() {
     updateLeaderboard();
     playerNameInput.value = ""; // Clear the name input for the next game
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Remove event listeners for the D-pad
+    document.getElementById('upBtn').removeEventListener('click', () => snake.changeDirection('Up'));
+    document.getElementById('downBtn').removeEventListener('click', () => snake.changeDirection('Down'));
+    document.getElementById('leftBtn').removeEventListener('click', () => snake.changeDirection('Left'));
+    document.getElementById('rightBtn').removeEventListener('click', () => snake.changeDirection('Right'));
 }
 
 window.addEventListener('keydown', (evt) => {
     const direction = evt.key.replace('Arrow', '');
     snake.changeDirection(direction);
-    
-// After defining the Snake and Fruit functions
-
-function handleDirectionChange(direction) {
-    if (direction) {
-        snake.changeDirection(direction);
-    }
-}
-
-// Adding control event listeners after the game objects have been defined
-document.getElementById('upButton').addEventListener('click', () => handleDirectionChange('Up'));
-document.getElementById('leftButton').addEventListener('click', () => handleDirectionChange('Left'));
-document.getElementById('downButton').addEventListener('click', () => handleDirectionChange('Down'));
-document.getElementById('rightButton').addEventListener('click', () => handleDirectionChange('Right'));
-
-// Adding touch event listeners for touch devices
-document.getElementById('upButton').addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents scrolling on touch devices
-    handleDirectionChange('Up');
-});
-document.getElementById('leftButton').addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleDirectionChange('Left');
-});
-document.getElementById('downButton').addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleDirectionChange('Down');
-});
-document.getElementById('rightButton').addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleDirectionChange('Right');
-});
-
-// Existing game initialization and control code continues here
-
-
 });

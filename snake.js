@@ -154,13 +154,29 @@ function updateScore() {
 }
 
 function updateLeaderboard() {
-    leaderboardElement.innerHTML = "Leaderboard:<br>";
-    highScores.sort((a, b) => b.score - a.score);
+    const tableBody = document.getElementById('leaderboardTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = "";  // Clear the current contents
+
+    highScores.sort((a, b) => b.score - a.score); // Sort scores in descending order
     highScores.forEach((entry, index) => {
-        leaderboardElement.innerHTML += (index + 1) + ". " + entry.name + ": " + entry.score + "<br>";
+        const row = tableBody.insertRow();
+        const rankCell = row.insertCell(0);
+        const nameCell = row.insertCell(1);
+        const scoreCell = row.insertCell(2);
+
+        rankCell.innerHTML = index + 1;
+        nameCell.innerHTML = entry.name;
+        scoreCell.innerHTML = entry.score;
+
+        // Highlight the top scorer
+        if (index === 0) {
+            row.style.backgroundColor = "#FFD700"; // Gold color for the top scorer
+            row.style.color = "#000"; // Text color for visibility
+        }
     });
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+    localStorage.setItem('highScores', JSON.stringify(highScores)); // Save the updated high scores
 }
+
 
 function gameOver() {
     clearInterval(interval);

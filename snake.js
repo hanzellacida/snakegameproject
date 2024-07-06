@@ -205,4 +205,5 @@ document.getElementById('rightButton').addEventListener('touchstart', (e) => {
 
 // Existing game initialization and control code continues here
 
+
 });

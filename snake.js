@@ -19,6 +19,8 @@ let fruit;
 let score;
 let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
+
+
 function Snake() {
     this.x = 0;
     this.y = 0;
@@ -168,4 +170,39 @@ function gameOver() {
 window.addEventListener('keydown', (evt) => {
     const direction = evt.key.replace('Arrow', '');
     snake.changeDirection(direction);
+    
+// After defining the Snake and Fruit functions
+
+function handleDirectionChange(direction) {
+    if (direction) {
+        snake.changeDirection(direction);
+    }
+}
+
+// Adding control event listeners after the game objects have been defined
+document.getElementById('upButton').addEventListener('click', () => handleDirectionChange('Up'));
+document.getElementById('leftButton').addEventListener('click', () => handleDirectionChange('Left'));
+document.getElementById('downButton').addEventListener('click', () => handleDirectionChange('Down'));
+document.getElementById('rightButton').addEventListener('click', () => handleDirectionChange('Right'));
+
+// Adding touch event listeners for touch devices
+document.getElementById('upButton').addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents scrolling on touch devices
+    handleDirectionChange('Up');
+});
+document.getElementById('leftButton').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleDirectionChange('Left');
+});
+document.getElementById('downButton').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleDirectionChange('Down');
+});
+document.getElementById('rightButton').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleDirectionChange('Right');
+});
+
+// Existing game initialization and control code continues here
+
 });
